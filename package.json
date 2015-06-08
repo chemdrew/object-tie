@@ -1,0 +1,39 @@
+{
+  "name": "object-tie",
+  "description": "create a link between a JSON object and a file that updates the file anytime a change is made",
+  "version": "0.0.0",
+  "author": {
+    "name": "Andrew Pratt <chemdrew1@gmail.com> (http://chemdrew.com)"
+  },
+  "homepage": "https://github.com/chemdrew/object-tie",
+  "bugs": {
+    "url": "https://github.com/chemdrew/object-tie/issues"
+  },
+  "keywords": [
+    "JSON","file","dbm","link","tie","save"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chemdrew/object-tie.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "2.2.5",
+    "chai": "3.0.0",
+    "sinon": "1.14.1"
+  },
+  "scripts": {
+    "test": "./mocha"
+  },
+  "main": "./index.js",
+  "_npmUser": {
+    "name": "chemdrew",
+    "email": "chemdrew1@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "Andrew Pratt",
+      "email": "chemdrew1@gmail.com"
+    }
+  ]
+}
