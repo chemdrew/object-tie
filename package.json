@@ -10,7 +10,12 @@
     "url": "https://github.com/chemdrew/object-tie/issues"
   },
   "keywords": [
-    "JSON","file","dbm","link","tie","save"
+    "JSON",
+    "file",
+    "dbm",
+    "link",
+    "tie",
+    "save"
   ],
   "repository": {
     "type": "git",
@@ -20,10 +25,13 @@
   "devDependencies": {
     "mocha": "2.2.5",
     "chai": "3.0.0",
-    "sinon": "1.14.1"
+    "sinon": "1.14.1",
+    "coveralls": "2.11.2",
+    "mocha-lcov-reporter": "0.0.2"
   },
   "scripts": {
-    "test": "./mocha"
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec spec/ && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "local-test": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec spec/"
   },
   "main": "./index.js",
   "_npmUser": {

@@ -1,4 +1,29 @@
-var WARNINGS = true;
+/*
+The MIT License (MIT)
+
+Copyright (c) 2015 Andrew Pratt
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+var DEVELOPMENT = process.env.OBJTIE_DEVELOPMENT || false; //CHANGE THIS
+var WARNINGS    = true;
 function Warning ( string ) {
     if ( WARNINGS ) {
         process.stderr.write( "\033[1;33m[WARNING] "+string+"\033[0m\n" );
@@ -16,7 +41,7 @@ function noWarnings () {
 
 function newLink ( obj ) {
     this.OBJECT = obj;
-    if ( typeof( obj ) !== 'object' ) {
+    if ( typeof( obj ) !== 'object' || Array.isArray( obj ) || obj === null ) {
         Warning( 'invalid request, an object must be supplied - no link created' );
         return obj;
     } else {
@@ -25,7 +50,7 @@ function newLink ( obj ) {
 };
 
 function unlink ( obj ) {
-    if ( typeof( obj ) !== 'object' ) {
+    if ( typeof( obj ) !== 'object' || Array.isArray( obj ) || obj === null ) {
         Warning( 'invalid request, an object must be supplied - link not destroyed' );
         return obj;
     } else {
@@ -58,7 +83,7 @@ function retrieve ( file ) {
 
 // this is to get around the inability to watch the entire object
 function addKey ( obj, key ) {
-    if ( typeof( obj ) !== 'object' || typeof( key ) !== 'object' ) {
+    if ( typeof( obj ) !== 'object' || Array.isArray( obj ) || obj === null || typeof( key ) !== 'object' ) {
         Warning( 'invalid request, an object must be supplied - no additions made' );
         return obj;
     } else {
@@ -78,7 +103,7 @@ function addKey ( obj, key ) {
 // this is to get around the inability to watch the entire object
 function deleteKey ( obj, key ) {
     var self = this;
-    if ( typeof( obj ) !== 'object' || typeof( key ) !== 'string' ) {
+    if ( typeof( obj ) !== 'object' || Array.isArray( obj ) || obj === null || typeof( key ) !== 'string' ) {
         Warning( 'invalid request, an object and a string must be supplied - no key deleted' );
         return obj;
     } else {
@@ -148,9 +173,16 @@ function resetObjectProperties ( obj, key ) {
     return obj;
 };
 
-module.exports = newLink;
-module.exports = unlink;
-module.exports = retrieve;
-module.exports = addKey;
-module.exports = deleteKey;
-module.exports = noWarnings;
+if ( DEVELOPMENT ) {
+    function getWarnings() {return WARNINGS;};
+    module.exports.noWarnings = noWarnings;
+    module.exports.WARNINGS = getWarnings;
+    module.exports.newLink    = newLink;
+} else {
+    module.exports.newLink    = newLink;
+    module.exports.unlink     = unlink;
+    module.exports.retrieve   = retrieve;
+    module.exports.addKey     = addKey;
+    module.exports.deleteKey  = deleteKey;
+    module.exports.noWarnings = noWarnings;
+}
