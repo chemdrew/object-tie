@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-var DEVELOPMENT = process.env.OBJTIE_DEVELOPMENT || false; //CHANGE THIS
 var WARNINGS    = true;
 function Warning ( string ) {
     if ( WARNINGS ) {
@@ -91,9 +90,6 @@ function addKey ( obj, key ) {
         for ( var innerKey in key ) {
             obj[innerKey] = undefined;
             defineObjectProperties( obj, innerKey );
-            if ( typeof( tempKey[key] ) === 'object' ) {
-                addKey( tempKey[key] );
-            };
             obj[innerKey] = tempKey[innerKey];
         };
         return obj;
@@ -120,9 +116,6 @@ function objectTie ( obj ) {
     var tempObj = JSON.parse( JSON.stringify( obj ) );
     for ( var key in obj ) {
         defineObjectProperties( obj, key );
-        if ( typeof( tempObj[key] ) === 'object' ) {
-            objectTie( tempObj[key] );
-        };
         obj[key] = tempObj[key];
     };
     return obj;
@@ -133,6 +126,8 @@ function defineObjectProperties ( obj, key ) {
     var values = {};
     Object.defineProperty( obj, key, {
         set: function ( val ) {
+            // gets called initially by the number of keys present
+            // could avoid this using the arguments.callee.caller.toString() but not supported by a lot of things
             values[key] = val;
             if ( typeof( val ) === 'object' ) {
                 objectTie( val );
@@ -150,9 +145,6 @@ function objectUntie ( obj ) {
     var tempObj = JSON.parse( JSON.stringify( obj ) );
     for ( var key in obj ) {
         resetObjectProperties( obj, key );
-        if ( typeof( tempObj[key] ) === 'object' ) {
-            objectUntie( tempObj[key] );
-        };
         obj[key] = tempObj[key];
     };
     return obj;
@@ -163,9 +155,6 @@ function resetObjectProperties ( obj, key ) {
     Object.defineProperty( obj, key, {
         set: function ( val ) {
             values[key] = val;
-            if ( typeof( val ) === 'object' ) {
-                objectUntie( val );
-            };
             return values[key];
         },
         get: function () { return values[key]; },
@@ -173,16 +162,11 @@ function resetObjectProperties ( obj, key ) {
     return obj;
 };
 
-if ( DEVELOPMENT ) {
-    function getWarnings() {return WARNINGS;};
-    module.exports.noWarnings = noWarnings;
-    module.exports.WARNINGS = getWarnings;
-    module.exports.newLink    = newLink;
-} else {
-    module.exports.newLink    = newLink;
-    module.exports.unlink     = unlink;
-    module.exports.retrieve   = retrieve;
-    module.exports.addKey     = addKey;
-    module.exports.deleteKey  = deleteKey;
-    module.exports.noWarnings = noWarnings;
-}
+function getWarnings() {return WARNINGS;};
+module.exports.WARNINGS   = getWarnings; // for unit testing
+module.exports.noWarnings = noWarnings;
+module.exports.newLink    = newLink;
+module.exports.unlink     = unlink;
+module.exports.retrieve   = retrieve;
+module.exports.addKey     = addKey;
+module.exports.deleteKey  = deleteKey;
