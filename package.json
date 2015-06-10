@@ -7,7 +7,7 @@
   },
   "homepage": "https://github.com/chemdrew/object-tie",
   "bugs": {
-    "url": "https://github.com/chemdrew/object-tie/issues"
+    "email": "chemdrew1@gmail.com"
   },
   "keywords": [
     "JSON",
@@ -15,7 +15,10 @@
     "dbm",
     "link",
     "tie",
-    "save"
+    "save",
+    "persistance",
+    "javascript",
+    "object"
   ],
   "repository": {
     "type": "git",
