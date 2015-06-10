@@ -33,13 +33,14 @@ function Warning ( string ) {
 
 var fs = require('fs');
 var filePath = process.cwd() + '/saved_object.json';
+var OBJECT;
 
 function noWarnings () {
     WARNINGS = false;
 };
 
 function newLink ( obj ) {
-    this.OBJECT = obj;
+    OBJECT = obj;
     if ( typeof( obj ) !== 'object' || Array.isArray( obj ) || obj === null ) {
         Warning( 'invalid request, an object must be supplied - no link created' );
         return obj;
@@ -75,7 +76,7 @@ function retrieve ( file ) {
         Warning( 'invalid request, file does not contain a valid object - no link created' );
         return obj;
     };
-    this.OBJECT = obj;
+    OBJECT = obj;
     filePath = file;
     return objectTie( obj );
 };
@@ -105,7 +106,7 @@ function deleteKey ( obj, key ) {
     } else {
         if ( key in obj ) {
             delete obj[key];
-            fs.writeFileSync( filePath, JSON.stringify( self.OBJECT, null, 4 ) );
+            fs.writeFileSync( filePath, JSON.stringify( OBJECT, null, 4 ) );
             // add async version in next release
         };
         return obj;
@@ -132,7 +133,7 @@ function defineObjectProperties ( obj, key ) {
             if ( typeof( val ) === 'object' ) {
                 objectTie( val );
             };
-            fs.writeFileSync( filePath, JSON.stringify( self.OBJECT, null, 4 ) );
+            fs.writeFileSync( filePath, JSON.stringify( OBJECT, null, 4 ) );
             // add async version in next release
             return values[key];
         },
