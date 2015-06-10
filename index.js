@@ -105,7 +105,7 @@ function deleteKey ( obj, key ) {
     } else {
         if ( key in obj ) {
             delete obj[key];
-            fs.writeFileSync( filePath, JSON.stringify( self.OBJECT, null, '    ' ) );
+            fs.writeFileSync( filePath, JSON.stringify( self.OBJECT, null, 4 ) );
             // add async version in next release
         };
         return obj;
@@ -132,7 +132,7 @@ function defineObjectProperties ( obj, key ) {
             if ( typeof( val ) === 'object' ) {
                 objectTie( val );
             };
-            fs.writeFileSync( filePath, JSON.stringify( self.OBJECT, null, '    ' ) );
+            fs.writeFileSync( filePath, JSON.stringify( self.OBJECT, null, 4 ) );
             // add async version in next release
             return values[key];
         },
