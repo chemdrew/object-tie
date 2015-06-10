@@ -18,6 +18,8 @@ This module was created as a way to link an object to a file and automatically u
 
 When using this to save an object to a file it will automatically save to `saved_object.json` in the current working directory. This functionality leverages the use of `Object.defineProperty` employing getters and setters, leaving your object alone but tied to the file on any change. One adverse effect of this is when you print the object using `console.log( obj )` it will return the values as `[Getter/Setter]` and to see the actual object as you would like just use `console.log( JSON.stringify( obj, null, 4 ) )`.
 
+The following examples are only showing an object with depth of one, but any depth object behaves similarly, with all keys bound to the file.
+
 Adding object-tie to a file
 
 ```javascript
