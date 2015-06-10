@@ -62,10 +62,10 @@ and
 
 ```json
 // /saved_object.json
-greetings = {
-    english: 'hey',
-    spanish: 'hola',
-    chinese: 'ni hao'
+{
+    "english": "hey",
+    "spanish": "hola",
+    "chinese": "ni hao"
 }
 ```
 
