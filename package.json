@@ -1,7 +1,7 @@
 {
   "name": "object-tie",
   "description": "create a link between a JSON object and a file that updates the file anytime a change is made",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": {
     "name": "Andrew Pratt <chemdrew1@gmail.com> (http://chemdrew.com)"
   },

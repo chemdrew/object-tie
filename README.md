@@ -16,23 +16,23 @@ This module was created as a way to link an object to a file and automatically u
 
 ## Methods
 
-###newLink( object )
+### newLink( object )
 
 creates a bond to the object
 
-###addKey( object, object )
+### addKey( object, object )
 
 adds a key/value pair to the object, where argument[0] is the object and argument[1] is the key/value pair being added
 
-###deleteKey( object, string )
+### deleteKey( object, string )
 
 removes a key/value pair from the object, where object is the object containing the key to be deleted in the first level (so obj.level2.level3 if the key resides in the third level) and string is the name of the key
 
-###retrieve( string )
+### retrieve( string )
 
 creates abond between an existing object saved to a file, where string is the filepath to the file
 
-###unlink( object )
+### unlink( object )
 
 removes the bond to the object
 
