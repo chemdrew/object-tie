@@ -37,9 +37,6 @@ describe('index.js method calls', function(){
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
         });
-        it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
-        });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(3);
         });
@@ -77,9 +74,6 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
-        });
-        it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(4);
@@ -124,9 +118,6 @@ describe('index.js method calls', function(){
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
         });
-        it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
-        });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(4);
         });
@@ -167,9 +158,6 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
-        });
-        it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(4);
@@ -214,9 +202,6 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
-        });
-        it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(5);
@@ -264,9 +249,6 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
-        });
-        it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(4);
@@ -317,9 +299,6 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
-        });
-        it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(8);
@@ -375,9 +354,6 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
-        });
-        it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called on the existing file path provided', function(){
             WriteStub.args.forEach(function(arg){
