@@ -38,10 +38,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            setTimeout(function() { expect( WriteStub.called ).to.be.true; }, 100);
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            setTimeout(function() { expect( WriteStub.callCount ).to.be.equal(3) }, 100);
+            expect( WriteStub.callCount ).to.be.equal(3);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -79,10 +79,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            setTimeout(function() { expect( WriteStub.called ).to.be.true; }, 100);
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            setTimeout(function() { expect( WriteStub.callCount ).to.be.equal(4) }, 100);
+            expect( WriteStub.callCount ).to.be.equal(4);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -125,10 +125,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            setTimeout(function() { expect( WriteStub.called ).to.be.true; }, 100);
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            setTimeout(function() { expect( WriteStub.callCount ).to.be.equal(4) }, 100);
+            expect( WriteStub.callCount ).to.be.equal(4);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -169,10 +169,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            setTimeout(function() { expect( WriteStub.called ).to.be.true; }, 100);
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            setTimeout(function() { expect( WriteStub.callCount ).to.be.equal(4) }, 100);
+            expect( WriteStub.callCount ).to.be.equal(4);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -216,10 +216,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            setTimeout(function() { expect( WriteStub.called ).to.be.true; }, 100);
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            setTimeout(function() { expect( WriteStub.callCount ).to.be.equal(5) }, 100);
+            expect( WriteStub.callCount ).to.be.equal(5);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -266,10 +266,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            setTimeout(function() { expect( WriteStub.called ).to.be.true; }, 100);
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            setTimeout(function() { expect( WriteStub.callCount ).to.be.equal(4) }, 100);
+            expect( WriteStub.callCount ).to.be.equal(4);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -319,10 +319,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            setTimeout(function() { expect( WriteStub.called ).to.be.true; }, 100);
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            setTimeout(function() { expect( WriteStub.callCount ).to.be.equal(8) }, 100);
+            expect( WriteStub.callCount ).to.be.equal(8);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -377,7 +377,7 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            setTimeout(function() { expect( WriteStub.called ).to.be.true; }, 100);
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called on the existing file path provided', function(){
             WriteStub.args.forEach(function(arg){
@@ -385,7 +385,7 @@ describe('index.js method calls', function(){
             });
         });
         it('file printing should be called for every key', function(){
-            setTimeout(function() { expect( WriteStub.callCount ).to.be.equal(8) }, 100);
+            expect( WriteStub.callCount ).to.be.equal(8);
         });
         it('should return the new value in the changed key', function(){
             expect( objReturn.key2.level2.level3_1 ).to.equal( 'I changed val1 to this' );
