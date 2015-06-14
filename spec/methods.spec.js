@@ -24,6 +24,7 @@ describe('index.js method calls', function(){
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn     = object_tie.newLink( testObj );
+            setTimeout(function(){},50);
         });
         after(function(){
             require('fs').writeFile.restore();
@@ -36,6 +37,9 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
+        });
+        it('file printing should be called', function(){
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(3);
@@ -62,6 +66,7 @@ describe('index.js method calls', function(){
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn     = object_tie.newLink( testObj );
             testObj.key2  = 'changed value2';
+            setTimeout(function(){},50);
         });
         after(function(){
             require('fs').writeFile.restore();
@@ -74,6 +79,9 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
+        });
+        it('file printing should be called', function(){
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(4);
@@ -105,6 +113,7 @@ describe('index.js method calls', function(){
             testObj.key2  = 'changed value2';
             object_tie.unlink( testObj );
             testObj.key2  = 'not printed value2';
+            setTimeout(function(){},50);
         });
         after(function(){
             require('fs').writeFile.restore();
@@ -117,6 +126,9 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
+        });
+        it('file printing should be called', function(){
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(4);
@@ -146,6 +158,7 @@ describe('index.js method calls', function(){
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn     = object_tie.newLink( testObj );
             object_tie.addKey( testObj, { key4: 'added value4' } );
+            setTimeout(function(){},50);
         });
         after(function(){
             require('fs').writeFile.restore();
@@ -158,6 +171,9 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
+        });
+        it('file printing should be called', function(){
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(4);
@@ -190,6 +206,7 @@ describe('index.js method calls', function(){
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn     = object_tie.newLink( testObj );
             object_tie.addKey( testObj, { key4: { innerkey4: 'double deep value4' } } );
+            setTimeout(function(){},50);
         });
         after(function(){
             require('fs').writeFile.restore();
@@ -202,6 +219,9 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
+        });
+        it('file printing should be called', function(){
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(5);
@@ -237,6 +257,7 @@ describe('index.js method calls', function(){
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn     = object_tie.newLink( testObj );
             object_tie.deleteKey( testObj, 'key3' );
+            setTimeout(function(){},50);
         });
         after(function(){
             require('fs').writeFile.restore();
@@ -249,6 +270,9 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
+        });
+        it('file printing should be called', function(){
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(4);
@@ -287,6 +311,7 @@ describe('index.js method calls', function(){
             testObj.key2.level2.level3_1 = 'I changed val1 to this';
             object_tie.deleteKey( testObj.key2.level2, 'level3_2' );
             object_tie.addKey( testObj.key2.level2, { thisIsMyLevel: 'thisIsMyValue' } );
+            setTimeout(function(){},50);
         });
         after(function(){
             require('fs').writeFile.restore();
@@ -299,6 +324,9 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
+        });
+        it('file printing should be called', function(){
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
             expect( WriteStub.callCount ).to.be.equal(8);
@@ -342,6 +370,7 @@ describe('index.js method calls', function(){
             objReturn.key2.level2.level3_1 = 'I changed val1 to this';
             object_tie.deleteKey( objReturn.key2.level2, 'level3_2' );
             object_tie.addKey( objReturn.key2.level2, { thisIsMyLevel: 'thisIsMyValue' } );
+            setTimeout(function(){},50);
         });
         after(function(){
             require('fs').writeFile.restore();
@@ -354,6 +383,9 @@ describe('index.js method calls', function(){
 
         it('an error should not be printed to stderr', function(){
             expect( ErrStub.called ).to.be.false;
+        });
+        it('file printing should be called', function(){
+            expect( WriteStub.called ).to.be.true;
         });
         it('file printing should be called on the existing file path provided', function(){
             WriteStub.args.forEach(function(arg){
