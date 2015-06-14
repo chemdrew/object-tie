@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-var WARNINGS    = true;
 function Warning ( string ) {
     if ( WARNINGS ) {
         process.stderr.write( "\033[1;33m[WARNING] "+string+"\033[0m\n" );
@@ -32,11 +31,20 @@ function Warning ( string ) {
 'use strict';
 
 var fs = require('fs');
-var filePath = process.cwd() + '/saved_object.json';
+var FILE_PATH = process.cwd() + '/saved_object.json';
 var OBJECT;
+var SYNC = false;
+var WARNINGS = true;
 
-function noWarnings () {
-    WARNINGS = false;
+function config () {
+    var args = Array.prototype.slice.call(arguments);
+
+    SYNC      = args[0].sync || false;
+    var file  = args[0].file || '/saved_object.json';
+    WARNINGS  = args[0].warnings === false ? false : true;
+    FILE_PATH = process.cwd() + '/' + file;
+
+    return this;
 };
 
 function newLink ( obj ) {
@@ -58,17 +66,14 @@ function unlink ( obj ) {
     };
 };
 
-// TEST THIS HEAVILY
 function retrieve ( file ) {
     var obj;
 
     if ( fs.existsSync( file ) ) {
-        obj = fs.readFileSync( file, 'utf8' );
+        obj = SYNC ? fs.readFileSync( file, 'utf8' ) : fs.readFile( file, 'utf8', function (err, data) {if (err) Warning(err)} );
     } else {
         Warning( 'invalid request, file path ['+file+'] does not exist - no link created' );
         return obj;
-        // error for now
-        // once additions to obj can be handled => mkdir & obj = {}
     };
     try {
         obj = JSON.parse(obj);
@@ -77,7 +82,7 @@ function retrieve ( file ) {
         return obj;
     };
     OBJECT = obj;
-    filePath = file;
+    FILE_PATH = FILE_PATH.match(/saved_object.json/) ? file : FILE_PATH;
     return objectTie( obj );
 };
 
@@ -106,8 +111,7 @@ function deleteKey ( obj, key ) {
     } else {
         if ( key in obj ) {
             delete obj[key];
-            fs.writeFileSync( filePath, JSON.stringify( OBJECT, null, 4 ) );
-            // add async version in next release
+            SYNC ? fs.writeFileSync( FILE_PATH, JSON.stringify( OBJECT, null, 4 ) ) : fs.writeFile( FILE_PATH, JSON.stringify( OBJECT, null, 4 ), function (err, data) {if (err) Warning(err)} );
         };
         return obj;
     };
@@ -127,15 +131,14 @@ function defineObjectProperties ( obj, key ) {
     var values = {};
     Object.defineProperty( obj, key, {
         set: function ( val ) {
-            // gets called initially by the number of keys present
-            // could avoid this using the arguments.callee.caller.toString() but not supported by a lot of things
             values[key] = val;
             if ( typeof( val ) === 'object' ) {
                 objectTie( val );
             };
-            fs.writeFileSync( filePath, JSON.stringify( OBJECT, null, 4 ) );
-            // add async version in next release
-            return values[key];
+            setTimeout(function() {
+                SYNC ? fs.writeFileSync( FILE_PATH, JSON.stringify( OBJECT, null, 4 ) ) : fs.writeFile( FILE_PATH, JSON.stringify( OBJECT, null, 4 ), function (err, data) {if (err) Warning(err)} );
+                return values[key];
+            }, 0);
         },
         get: function () { return values[key]; }
     });
@@ -165,9 +168,9 @@ function resetObjectProperties ( obj, key ) {
 
 function getWarnings() {return WARNINGS;};
 module.exports.WARNINGS   = getWarnings; // for unit testing
-module.exports.noWarnings = noWarnings;
 module.exports.newLink    = newLink;
 module.exports.unlink     = unlink;
 module.exports.retrieve   = retrieve;
 module.exports.addKey     = addKey;
 module.exports.deleteKey  = deleteKey;
+module.exports.config     = config;
