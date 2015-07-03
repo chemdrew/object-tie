@@ -25,7 +25,6 @@ describe('index.js config method calls', function(){
                 sync: true,
                 file: 'myFile.json',
                 warnings: false
-
             });
             objReturn     = object_tie.newLink( testObj );
             testObj.key2  = 'changed value2';
@@ -41,7 +40,6 @@ describe('index.js config method calls', function(){
                 sync: false,
                 file: 'saved_object.json',
                 warnings: true
-
             });
         });
 
@@ -92,7 +90,6 @@ describe('index.js config method calls', function(){
                 sync: true,
                 file: 'myFile.json',
                 warnings: false
-
             });
             objReturn     = object_tie.retrieve( 'fileExists.json' );
             objReturn.key2.level2.level3_1 = 'I changed val1 to this';
@@ -110,7 +107,6 @@ describe('index.js config method calls', function(){
                 sync: false,
                 file: 'saved_object.json',
                 warnings: true
-
             });
         });
 
