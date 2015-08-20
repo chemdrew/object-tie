@@ -6,7 +6,7 @@ var expect = require('chai').expect,
 var object_tie = require(process.cwd() + '/index.js');
 
 describe('index.js method calls', function(){
-    var WriteStub, WriteStubSync, ReadStub, ReadStubSync, ExistsStub, ErrStub;
+    var WriteStubSync, ReadStubSync, ExistsStub, ErrStub;
 
     describe('newLink with a single layer object passed in', function(){
         var objReturn;
@@ -17,18 +17,14 @@ describe('index.js method calls', function(){
         };
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn     = object_tie.newLink( testObj );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -38,10 +34,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
+            expect( WriteStubSync.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            expect( WriteStub.callCount ).to.be.equal(3);
+            expect( WriteStubSync.callCount ).to.be.equal(3);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -57,9 +53,7 @@ describe('index.js method calls', function(){
         };
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
@@ -67,9 +61,7 @@ describe('index.js method calls', function(){
             testObj.key2  = 'changed value2';
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -79,10 +71,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
+            expect( WriteStubSync.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            expect( WriteStub.callCount ).to.be.equal(4);
+            expect( WriteStubSync.callCount ).to.be.equal(4);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -101,9 +93,7 @@ describe('index.js method calls', function(){
         };
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
@@ -113,9 +103,7 @@ describe('index.js method calls', function(){
             testObj.key2  = 'not printed value2';
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -125,10 +113,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
+            expect( WriteStubSync.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            expect( WriteStub.callCount ).to.be.equal(4);
+            expect( WriteStubSync.callCount ).to.be.equal(4);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -147,9 +135,7 @@ describe('index.js method calls', function(){
         };
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
@@ -157,9 +143,7 @@ describe('index.js method calls', function(){
             object_tie.addKey( testObj, { key4: 'added value4' } );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -169,10 +153,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
+            expect( WriteStubSync.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            expect( WriteStub.callCount ).to.be.equal(4);
+            expect( WriteStubSync.callCount ).to.be.equal(4);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -194,9 +178,7 @@ describe('index.js method calls', function(){
         };
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
@@ -204,9 +186,7 @@ describe('index.js method calls', function(){
             object_tie.addKey( testObj, { key4: { innerkey4: 'double deep value4' } } );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -216,10 +196,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
+            expect( WriteStubSync.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            expect( WriteStub.callCount ).to.be.equal(5);
+            expect( WriteStubSync.callCount ).to.be.equal(5);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -244,9 +224,7 @@ describe('index.js method calls', function(){
         };
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
@@ -254,9 +232,7 @@ describe('index.js method calls', function(){
             object_tie.deleteKey( testObj, 'key3' );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -266,10 +242,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
+            expect( WriteStubSync.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            expect( WriteStub.callCount ).to.be.equal(4);
+            expect( WriteStubSync.callCount ).to.be.equal(4);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -295,9 +271,7 @@ describe('index.js method calls', function(){
         };
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
@@ -307,9 +281,7 @@ describe('index.js method calls', function(){
             object_tie.addKey( testObj.key2.level2, { thisIsMyLevel: 'thisIsMyValue' } );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -319,10 +291,10 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
+            expect( WriteStubSync.called ).to.be.true;
         });
         it('file printing should be called for every key', function(){
-            expect( WriteStub.callCount ).to.be.equal(8);
+            expect( WriteStubSync.callCount ).to.be.equal(8);
         });
         it('should return the object that was passed in', function(){
             expect( objReturn ).to.equal( testObj );
@@ -351,13 +323,11 @@ describe('index.js method calls', function(){
         };
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
-            ReadStub.returns( JSON.stringify( testObj, null, 4 ) );
+            ReadStubSync.returns( JSON.stringify( testObj, null, 4 ) );
             ExistsStub.withArgs('fileExists.json').returns(true);
             objReturn     = object_tie.retrieve( 'fileExists.json' );
             objReturn.key2.level2.level3_1 = 'I changed val1 to this';
@@ -365,9 +335,7 @@ describe('index.js method calls', function(){
             object_tie.addKey( objReturn.key2.level2, { thisIsMyLevel: 'thisIsMyValue' } );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -377,15 +345,15 @@ describe('index.js method calls', function(){
             expect( ErrStub.called ).to.be.false;
         });
         it('file printing should be called', function(){
-            expect( WriteStub.called ).to.be.true;
+            expect( WriteStubSync.called ).to.be.true;
         });
         it('file printing should be called on the existing file path provided', function(){
-            WriteStub.args.forEach(function(arg){
+            WriteStubSync.args.forEach(function(arg){
                 expect( arg[0] ).to.be.equal( 'fileExists.json' )
             });
         });
         it('file printing should be called for every key', function(){
-            expect( WriteStub.callCount ).to.be.equal(8);
+            expect( WriteStubSync.callCount ).to.be.equal(8);
         });
         it('should return the new value in the changed key', function(){
             expect( objReturn.key2.level2.level3_1 ).to.equal( 'I changed val1 to this' );

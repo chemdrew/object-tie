@@ -33,13 +33,11 @@ function Warning ( string ) {
 var fs = require('fs');
 var FILE_PATH = process.cwd() + '/saved_object.json';
 var OBJECT;
-var SYNC = false;
 var WARNINGS = true;
 
 function config () {
     var args = Array.prototype.slice.call(arguments);
 
-    SYNC      = args[0].sync || false;
     var file  = args[0].file || '/saved_object.json';
     WARNINGS  = args[0].warnings === false ? false : true;
     FILE_PATH = process.cwd() + '/' + file;
@@ -70,7 +68,7 @@ function retrieve ( file ) {
     var obj;
 
     if ( fs.existsSync( file ) ) {
-        obj = SYNC ? fs.readFileSync( file, 'utf8' ) : fs.readFile( file, 'utf8', function (err, data) {if (err) Warning(err)} );
+        obj = fs.readFileSync( file, 'utf8' );
     } else {
         Warning( 'invalid request, file path ['+file+'] does not exist - no link created' );
         return obj;
@@ -111,7 +109,7 @@ function deleteKey ( obj, key ) {
     } else {
         if ( key in obj ) {
             delete obj[key];
-            SYNC ? fs.writeFileSync( FILE_PATH, JSON.stringify( OBJECT, null, 4 ) ) : fs.writeFile( FILE_PATH, JSON.stringify( OBJECT, null, 4 ), function (err, data) {if (err) Warning(err)} );
+            fs.writeFileSync( FILE_PATH, JSON.stringify( OBJECT, null, 4 ) );
         };
         return obj;
     };
@@ -135,10 +133,8 @@ function defineObjectProperties ( obj, key ) {
             if ( typeof( val ) === 'object' ) {
                 objectTie( val );
             };
-            setTimeout(function() {
-                SYNC ? fs.writeFileSync( FILE_PATH, JSON.stringify( OBJECT, null, 4 ) ) : fs.writeFile( FILE_PATH, JSON.stringify( OBJECT, null, 4 ), function (err, data) {if (err) Warning(err)} );
-                return values[key];
-            }, 0);
+            fs.writeFileSync( FILE_PATH, JSON.stringify( OBJECT, null, 4 ) );
+            return values[key];
         },
         get: function () { return values[key]; }
     });

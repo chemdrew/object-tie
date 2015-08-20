@@ -6,24 +6,20 @@ var expect = require('chai').expect,
 var object_tie = require(process.cwd() + '/index.js');
 
 describe('index.js warnings', function(){
-    var WriteStub, WriteStubSync, ReadStub, ReadStubSync, ExistsStub, ErrStub;
+    var WriteStubSync, ReadStubSync, ExistsStub, ErrStub;
 
     describe('newLink with a string passed in', function(){
         var objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn = object_tie.newLink('invalid');
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -33,7 +29,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, an object must be supplied - no link created\u001b[0m\n');
@@ -47,9 +43,7 @@ describe('index.js warnings', function(){
         var argument, objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
@@ -57,9 +51,7 @@ describe('index.js warnings', function(){
             objReturn = object_tie.newLink( argument );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -69,7 +61,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, an object must be supplied - no link created\u001b[0m\n');
@@ -83,18 +75,14 @@ describe('index.js warnings', function(){
         var objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn = object_tie.newLink( null );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -104,7 +92,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, an object must be supplied - no link created\u001b[0m\n');
@@ -118,18 +106,14 @@ describe('index.js warnings', function(){
         var objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn = object_tie.unlink('invalid');
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -139,7 +123,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, an object must be supplied - link not destroyed\u001b[0m\n');
@@ -153,9 +137,7 @@ describe('index.js warnings', function(){
         var argument, objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
@@ -163,9 +145,7 @@ describe('index.js warnings', function(){
             objReturn = object_tie.unlink( argument );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -175,7 +155,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, an object must be supplied - link not destroyed\u001b[0m\n');
@@ -189,18 +169,14 @@ describe('index.js warnings', function(){
         var objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn = object_tie.unlink( null );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -210,7 +186,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, an object must be supplied - link not destroyed\u001b[0m\n');
@@ -224,18 +200,14 @@ describe('index.js warnings', function(){
         var objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn = object_tie.addKey( 'invalid' );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -245,7 +217,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, an object must be supplied - no additions made\u001b[0m\n');
@@ -259,9 +231,7 @@ describe('index.js warnings', function(){
         var argument, objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
@@ -269,9 +239,7 @@ describe('index.js warnings', function(){
             objReturn = object_tie.addKey( argument );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -281,7 +249,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, an object must be supplied - no additions made\u001b[0m\n');
@@ -295,18 +263,14 @@ describe('index.js warnings', function(){
         var objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn = object_tie.addKey( null );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -316,7 +280,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, an object must be supplied - no additions made\u001b[0m\n');
@@ -330,18 +294,14 @@ describe('index.js warnings', function(){
         var objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn = object_tie.deleteKey( 'invalid' );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -351,7 +311,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, an object and a string must be supplied - no key deleted\u001b[0m\n');
@@ -365,9 +325,7 @@ describe('index.js warnings', function(){
         var argument, objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
@@ -375,9 +333,7 @@ describe('index.js warnings', function(){
             objReturn = object_tie.deleteKey( argument );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -387,7 +343,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, an object and a string must be supplied - no key deleted\u001b[0m\n');
@@ -401,18 +357,14 @@ describe('index.js warnings', function(){
         var objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             objReturn = object_tie.deleteKey( null );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -422,7 +374,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, an object and a string must be supplied - no key deleted\u001b[0m\n');
@@ -445,20 +397,16 @@ describe('index.js warnings', function(){
         };
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
-            ReadStub.returns( JSON.stringify( testObj, null, 4 ) );
+            ReadStubSync.returns( JSON.stringify( testObj, null, 4 ) );
             ExistsStub.withArgs('fileDoesNotExist.json').returns(false);
             objReturn = object_tie.retrieve( 'fileDoesNotExist.json' );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -468,7 +416,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, file path [fileDoesNotExist.json] does not exist - no link created\u001b[0m\n');
@@ -482,20 +430,16 @@ describe('index.js warnings', function(){
         var objReturn;
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
-            ReadStub.returns( 'not an object passed in' );
+            ReadStubSync.returns( 'not an object passed in' );
             ExistsStub.withArgs('fileExists.json').returns(true);
             objReturn = object_tie.retrieve( 'fileExists.json' );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
@@ -505,7 +449,7 @@ describe('index.js warnings', function(){
             expect( ErrStub.called ).to.be.true;
         });
         it('file printing should not be called', function(){
-            expect( WriteStub.called ).to.be.false;
+            expect( WriteStubSync.called ).to.be.false;
         });
         it('file printing should return this string', function(){
             expect( ErrStub.lastCall.args[0] ).to.be.equal('\u001b[1;33m[WARNING] invalid request, file does not contain a valid object - no link created\u001b[0m\n');
@@ -518,18 +462,14 @@ describe('index.js warnings', function(){
     describe('Warnings', function(){
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             object_tie.config( { warnings: false } );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();

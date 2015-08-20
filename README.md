@@ -51,15 +51,13 @@ Adding object-tie to a file
 ```javascript
 // /yourFile.js
 var object_tie = require('object-tie').config({
-    sync: false,
     file: 'myObjects/persistantFile.json',
     warnings: true
 });;
 ```
 
-the config is optional. Default values are `sync: false`, `file: saved_object.json`, and `warnings: true`
+the config is optional. Default values are `file: saved_object.json`, and `warnings: true`
 the methods can be implemented without the config but for production environment the warnings and file location should probably be changed.
-`sync` specifies whether the writing and retreiving of the file is synchronous, saving time and computing power during the process but sometimes a synchronous process is better.
 `file` is the location of the file based on current working directory (cwd)
 `warnings` just display use warnings, useful for dev but probably best to be muted for prod
 
@@ -69,7 +67,6 @@ tying an object to the file
 ```javascript
 // /yourFile.js
 var object_tie = require('object-tie').config({
-    sync: false,
     file: 'saved_object.json',
     warnings: true
 });;
@@ -176,6 +173,7 @@ New features currently being worked on
 * optimization
 * addKey and deleteKey added onto the linked object as prototype methods (maybe/maybe not.. I don't want to mess with js standard objects or anything in the global namespace)
 * different places to save the object to. instead of it just being a json file it could be stored in a DB
+* was going to add an async method but would have to add promises to that to not overwrite the file, and then the performance stays the same as before... One thought is to add a promiseFlag that only allows writes when the flag is set, where it is set within the fs async callback function.
 
 Features for the more distant future
 
