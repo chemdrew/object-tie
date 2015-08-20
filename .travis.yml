@@ -1,6 +1,5 @@
 before_install:
   - npm install -g istanbul
-  - npm install
 language: node_js
 node_js:
   - "0.11"

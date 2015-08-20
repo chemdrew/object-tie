@@ -4,7 +4,7 @@ var expect = require('chai').expect,
      sinon = require('sinon');
 
 describe('index.js config method calls', function(){
-    var WriteStub, WriteStubSync, ReadStub, ReadStubSync, ExistsStub, ErrStub;
+    var WriteStubSync, ReadStubSync, ExistsStub, ErrStub;
 
     describe('newLink with a single layer object passed in and a value changed', function(){
         var object_tie, objReturn;
@@ -15,33 +15,25 @@ describe('index.js config method calls', function(){
         };
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             object_tie    = require(process.cwd() + '/index.js').config({
-                sync: true,
                 file: 'myFile.json',
                 warnings: false
-
             });
             objReturn     = object_tie.newLink( testObj );
             testObj.key2  = 'changed value2';
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
             object_tie.config({
-                sync: false,
                 file: 'saved_object.json',
                 warnings: true
-
             });
         });
 
@@ -80,19 +72,15 @@ describe('index.js config method calls', function(){
         };
 
         before(function(){
-            WriteStub     = sinon.stub( require('fs'), "writeFile" );
             WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-            ReadStub      = sinon.stub( require('fs'), "readFile" );
             ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
             ExistsStub    = sinon.stub( require('fs'), "existsSync" );
             ErrStub       = sinon.stub( process.stderr, 'write' );
             ReadStubSync.returns( JSON.stringify( testObj, null, 4 ) );
             ExistsStub.withArgs('fileExists.json').returns(true);
             object_tie    = require(process.cwd() + '/index.js').config({
-                sync: true,
                 file: 'myFile.json',
                 warnings: false
-
             });
             objReturn     = object_tie.retrieve( 'fileExists.json' );
             objReturn.key2.level2.level3_1 = 'I changed val1 to this';
@@ -100,17 +88,13 @@ describe('index.js config method calls', function(){
             object_tie.addKey( objReturn.key2.level2, { thisIsMyLevel: 'thisIsMyValue' } );
         });
         after(function(){
-            require('fs').writeFile.restore();
             require('fs').writeFileSync.restore();
-            require('fs').readFile.restore();
             require('fs').readFileSync.restore();
             require('fs').existsSync.restore();
             process.stderr.write.restore();
             object_tie.config({
-                sync: false,
                 file: 'saved_object.json',
                 warnings: true
-
             });
         });
 
@@ -138,51 +122,4 @@ describe('index.js config method calls', function(){
             expect( objReturn.key2.level2.thisIsMyLevel ).to.equal( 'thisIsMyValue' );
         });
     });
-
-    // describe('newLink with a single layer object passed in and a value deleted from it', function(){
-    //     var objReturn;
-    //     var testObj = {
-    //         key1: 'value1',
-    //         key2: 'value2',
-    //         key3: 'value3'
-    //     };
-
-    //     before(function(){
-    //         WriteStub     = sinon.stub( require('fs'), "writeFile" );
-    //         WriteStubSync = sinon.stub( require('fs'), "writeFileSync" );
-    //         ReadStub      = sinon.stub( require('fs'), "readFile" );
-    //         ReadStubSync  = sinon.stub( require('fs'), "readFileSync" );
-    //         ExistsStub    = sinon.stub( require('fs'), "existsSync" );
-    //         ErrStub       = sinon.stub( process.stderr, 'write' );
-    //         objReturn     = object_tie.newLink( testObj );
-    //         object_tie.deleteKey( testObj, 'key3' );
-    //     });
-    //     after(function(){
-    //         require('fs').writeFile.restore();
-    //         require('fs').writeFileSync.restore();
-    //         require('fs').readFile.restore();
-    //         require('fs').readFileSync.restore();
-    //         require('fs').existsSync.restore();
-    //         process.stderr.write.restore();
-    //     });
-
-    //     it('an error should not be printed to stderr', function(){
-    //         expect( ErrStub.called ).to.be.false;
-    //     });
-    //     it('file printing should be called', function(){
-    //         expect( WriteStub.called ).to.be.true;
-    //     });
-    //     it('file printing should be called for every key', function(){
-    //         expect( WriteStub.callCount ).to.be.equal(4);
-    //     });
-    //     it('should return the object that was passed in', function(){
-    //         expect( objReturn ).to.equal( testObj );
-    //     });
-    //     it('should return undefined in the deleted key', function(){
-    //         expect( testObj.key3 ).to.be.undefined;
-    //     });
-    //     it('should contain only two keys', function(){
-    //         expect( Object.keys( testObj ).length ).to.be.equal(2);
-    //     });
-    // });
 });

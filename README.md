@@ -16,6 +16,10 @@ This module was created as a way to link an object to a file and automatically u
 
 ## Methods
 
+### config( object )
+
+sets the configurations of the module
+
 ### newLink( object )
 
 creates a bond to the object
@@ -46,19 +50,31 @@ Adding object-tie to a file
 
 ```javascript
 // /yourFile.js
-var object_tie = require('object-tie');
+var object_tie = require('object-tie').config({
+    file: 'myObjects/persistantFile.json',
+    warnings: true
+});;
 ```
 
-tying and object to the file
+the config is optional. Default values are `file: saved_object.json`, and `warnings: true`
+the methods can be implemented without the config but for production environment the warnings and file location should probably be changed.
+`file` is the location of the file based on current working directory (cwd)
+`warnings` just display use warnings, useful for dev but probably best to be muted for prod
+
+
+tying an object to the file
 
 ```javascript
 // /yourFile.js
-var object_tie = require('object-tie');
+var object_tie = require('object-tie').config({
+    file: 'saved_object.json',
+    warnings: true
+});;
 
 var greetings = {
     english: 'hello',
     spanish: 'hola',
-    chinese: 'ni hao'
+    chinese: '你好'
 };
 
 object_tie.newLink( greetings );
@@ -76,7 +92,7 @@ console.log( JSON.stringify( greetings, null, 4 );
 // {
 //     english: 'hey',
 //     spanish: 'hola',
-//     chinese: 'ni hao'
+//     chinese: '你好'
 // }
 ```
 
@@ -87,7 +103,7 @@ and
 {
     "english": "hey",
     "spanish": "hola",
-    "chinese": "ni hao"
+    "chinese": "你好"
 }
 ```
 
@@ -96,14 +112,14 @@ Now what if you want to add a key to the object? Unfortunately I have not figure
 ```javascript
 // /yourFile.js
 
-object_tie.addKey( greetings, { korean: 'annyeonghaseyo' } );
+object_tie.addKey( greetings, { korean: '안녕하세요' } );
 
 console.log( JSON.stringify( greetings, null, 4 );
 // {
 //     english: 'hey',
 //     spanish: 'hola',
-//     chinese: 'ni hao',
-//     korean: 'annyeonghaseyo'
+//     chinese: '你好',
+//     korean: '안녕하세요'
 // }
 ```
 
@@ -122,8 +138,8 @@ object_tie.deleteKey( greetings, 'english' );
 console.log( JSON.stringify( greetings, null, 4 );
 // {
 //     spanish: 'hola',
-//     chinese: 'ni hao',
-//     korean: 'annyeonghaseyo'
+//     chinese: '你好',
+//     korean: '안녕하세요'
 // }
 ```
 
@@ -144,7 +160,7 @@ console.log( JSON.stringify( newGreetings, null, 4 );
 // {
 //     english: 'how are you?'
 //     spanish: 'como estas?',
-//     chinese: 'ni hao ma?'
+//     chinese: '你好吗?'
 // }
 ```
 
@@ -155,9 +171,9 @@ This object now has all the same functionality as before but instead of being up
 New features currently being worked on
 
 * optimization
-* asynchronous ability
-* ability to name the file you are saving to
-* addKey and deleteKey added onto the linked object as prototype methods
+* addKey and deleteKey added onto the linked object as prototype methods (maybe/maybe not.. I don't want to mess with js standard objects or anything in the global namespace)
+* different places to save the object to. instead of it just being a json file it could be stored in a DB
+* was going to add an async method but would have to add promises to that to not overwrite the file, and then the performance stays the same as before... One thought is to add a promiseFlag that only allows writes when the flag is set, where it is set within the fs async callback function.
 
 Features for the more distant future
 

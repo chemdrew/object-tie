@@ -1,7 +1,7 @@
 {
   "name": "object-tie",
   "description": "create a link between a JSON object and a file that updates the file anytime a change is made",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": {
     "name": "Andrew Pratt <chemdrew1@gmail.com> (http://chemdrew.com)"
   },
@@ -34,7 +34,7 @@
   },
   "scripts": {
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec spec/ && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
-    "local-test": "istanbul cover -x spec/ ./node_modules/mocha/bin/_mocha -- -R spec spec/"
+    "local-test": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec spec/"
   },
   "main": "./index.js",
   "_npmUser": {
